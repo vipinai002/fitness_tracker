@@ -1018,4 +1018,73 @@ render();
 })();
 </script>
 
+
+<style id="fittrack-v7-styles">
+.page-nav-row{display:flex;gap:8px;margin:0 0 12px}.page-nav-row .btn[disabled]{opacity:.4;cursor:not-allowed}.picker-create{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;border:1px dashed #405168;border-radius:14px;background:rgba(88,183,255,.06);margin-bottom:12px}.picker-create p{margin:4px 0 0;color:var(--muted);font-size:12px}.picker-create .btn{flex:0 0 auto}.alcohol-note{font-size:11px;color:#ffd78a;background:rgba(255,191,71,.08);border:1px solid rgba(255,191,71,.22);border-radius:10px;padding:8px 10px;margin-top:8px}.v7-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.v7-grid .full{grid-column:1/-1}.field-help{font-size:11px;color:var(--muted);line-height:1.4}
+@media(max-width:520px){.page-nav-row{position:sticky;top:65px;z-index:18;padding:7px 0;background:linear-gradient(var(--bg) 78%,transparent)}.picker-create{align-items:flex-start;flex-direction:column}.picker-create .btn{width:100%}.v7-grid{grid-template-columns:1fr}}
+</style>
+<script id="fittrack-v7-patch">
+(()=>{
+'use strict';
+const V7_FOODS=[
+{id:'beer-regular',name:'Beer, regular (about 5% ABV)',category:'Alcoholic drinks',diet:'veg',servingG:330,kcal:43,protein:.46,carbs:3.55,fat:0,fiber:0,source:'USDA FoodData Central generic reference',basis:'per 100 ml',quality:'Reference',aliases:['beer','lager','regular beer','beer can','beer bottle','pint beer','draft beer','draught beer'],note:'Alcohol adds calories not represented by protein, carbohydrate or fat. Brand and ABV vary.',servings:[{key:'bottle330',label:'1 bottle / can (330 ml)',grams:330},{key:'can355',label:'1 can (355 ml)',grams:355},{key:'pint',label:'1 pint (568 ml)',grams:568}]},
+{id:'beer-light',name:'Beer, light',category:'Alcoholic drinks',diet:'veg',servingG:330,kcal:29,protein:.24,carbs:1.64,fat:0,fiber:0,source:'USDA FoodData Central generic reference',basis:'per 100 ml',quality:'Reference',aliases:['light beer','lite beer','low calorie beer'],note:'Brand and ABV vary.',servings:[{key:'bottle330',label:'1 bottle / can (330 ml)',grams:330},{key:'can355',label:'1 can (355 ml)',grams:355}]},
+{id:'beer-strong',name:'Beer, strong / high-ABV',category:'Alcoholic drinks',diet:'veg',servingG:330,kcal:55,protein:.5,carbs:4.2,fat:0,fiber:0,source:'Generic label estimate; verify the brand and ABV',basis:'per 100 ml',quality:'Label estimate',aliases:['strong beer','high abv beer','malt beer','strong lager'],note:'Calories vary substantially by alcohol percentage.',servings:[{key:'bottle330',label:'1 bottle / can (330 ml)',grams:330},{key:'pint',label:'1 pint (568 ml)',grams:568}]},
+{id:'wine-red',name:'Red wine (about 12% ABV)',category:'Alcoholic drinks',diet:'veg',servingG:150,kcal:85,protein:.07,carbs:2.61,fat:0,fiber:0,source:'USDA FoodData Central generic reference',basis:'per 100 ml',quality:'Reference',aliases:['red wine','glass red wine','wine'],note:'Serving size and ABV vary.',servings:[{key:'glass150',label:'1 glass (150 ml)',grams:150},{key:'glass125',label:'1 small glass (125 ml)',grams:125}]},
+{id:'wine-white',name:'White wine (about 12% ABV)',category:'Alcoholic drinks',diet:'veg',servingG:150,kcal:82,protein:.07,carbs:2.6,fat:0,fiber:0,source:'USDA FoodData Central generic reference',basis:'per 100 ml',quality:'Reference',aliases:['white wine','glass white wine','wine'],note:'Sweetness, serving size and ABV vary.',servings:[{key:'glass150',label:'1 glass (150 ml)',grams:150},{key:'glass125',label:'1 small glass (125 ml)',grams:125}]},
+{id:'whisky-40',name:'Whisky / whiskey, 40% ABV',category:'Alcoholic drinks',diet:'veg',servingG:45,kcal:231,protein:0,carbs:0,fat:0,fiber:0,source:'USDA generic distilled-spirit reference',basis:'per 100 ml',quality:'Reference',aliases:['whisky','whiskey','scotch','bourbon','whisky peg','whisky shot'],note:'Mixer calories are not included.',servings:[{key:'peg30',label:'1 small peg / shot (30 ml)',grams:30},{key:'peg45',label:'1 standard peg / shot (45 ml)',grams:45},{key:'peg60',label:'1 large peg (60 ml)',grams:60}]},
+{id:'vodka-40',name:'Vodka, 40% ABV',category:'Alcoholic drinks',diet:'veg',servingG:45,kcal:231,protein:0,carbs:0,fat:0,fiber:0,source:'USDA generic distilled-spirit reference',basis:'per 100 ml',quality:'Reference',aliases:['vodka','vodka peg','vodka shot'],note:'Mixer calories are not included.',servings:[{key:'peg30',label:'1 small peg / shot (30 ml)',grams:30},{key:'peg45',label:'1 standard peg / shot (45 ml)',grams:45},{key:'peg60',label:'1 large peg (60 ml)',grams:60}]},
+{id:'rum-40',name:'Rum, 40% ABV',category:'Alcoholic drinks',diet:'veg',servingG:45,kcal:231,protein:0,carbs:0,fat:0,fiber:0,source:'USDA generic distilled-spirit reference',basis:'per 100 ml',quality:'Reference',aliases:['rum','dark rum','white rum','rum peg','rum shot'],note:'Mixer calories are not included.',servings:[{key:'peg30',label:'1 small peg / shot (30 ml)',grams:30},{key:'peg45',label:'1 standard peg / shot (45 ml)',grams:45},{key:'peg60',label:'1 large peg (60 ml)',grams:60}]},
+{id:'gin-40',name:'Gin, 40% ABV',category:'Alcoholic drinks',diet:'veg',servingG:45,kcal:231,protein:0,carbs:0,fat:0,fiber:0,source:'USDA generic distilled-spirit reference',basis:'per 100 ml',quality:'Reference',aliases:['gin','gin peg','gin shot'],note:'Tonic and mixer calories are not included.',servings:[{key:'peg30',label:'1 small peg / shot (30 ml)',grams:30},{key:'peg45',label:'1 standard peg / shot (45 ml)',grams:45},{key:'peg60',label:'1 large peg (60 ml)',grams:60}]}
+];
+V7_FOODS.forEach(f=>{if(!BASE_FOODS.some(x=>x.id===f.id))BASE_FOODS.push(f)});
+[
+ ['omelette-plain',['omelette','omelet','omlet','omlete','omlette','plain omelette','egg omelette']],
+ ['masala-omelette',['masala omelette','masala omelet','masala omlet','masala omlete','masala omlette']],
+ ['boiled-egg-omelette-2',['two egg omelette','2 egg omelette','omlete','omlette']],
+ ['bread-omelette',['bread omelette','bread omelet','bread omlet','bread omlete','bread omlette']]
+].forEach(([id,a])=>{const f=BASE_FOODS.find(x=>x.id===id);if(f)f.aliases=[...new Set([...(f.aliases||[]),...a])]});
+
+const v7BasePicker=renderPicker;
+renderPicker=function(meal){
+ meal=meal||document.getElementById('pickerMeal')?.value||ftActivePickerMeal||'Breakfast';
+ v7BasePicker(meal);
+ const list=document.getElementById('pickerList');if(!list)return;
+ const q=(document.getElementById('pickerSearch')?.value||'').trim();
+ const box=document.createElement('div');box.className='picker-create';box.innerHTML=`<div><b>Food not listed?</b><p>Create any food, drink, supplement or packaged item and add it directly to ${escapeHtml(meal)}.</p></div><button class="btn outline small" data-v7-create="${escapeHtml(meal)}|${encodeURIComponent(q)}">Create item</button>`;
+ list.prepend(box);
+ const createBtn=box.querySelector('[data-v7-create]');
+ if(createBtn){createBtn.onpointerdown=(ev)=>ev.preventDefault();createBtn.onmousedown=(ev)=>ev.preventDefault();createBtn.onclick=(ev)=>{ev.preventDefault();ev.stopPropagation();openCustom(meal,q)}};
+ list.querySelectorAll('.food-card').forEach(card=>{const name=card.querySelector('h3')?.textContent||'',f=allFoods().find(x=>x.name===name);if(f?.category==='Alcoholic drinks'&&!card.querySelector('.alcohol-note')){card.querySelector('button')?.insertAdjacentHTML('beforebegin','<div class="alcohol-note">Alcohol calories are included. Add mixers separately unless named in the item.</div>')}});
+};
+
+function openCustom(meal,q=''){
+ openModal(`Create and add to ${meal}`,`<div class="audit-note">Enter nutrition for one normal serving. Approximate grams or ml are only used for conversion, so you do not need to weigh the item.</div><div class="v7-grid" style="margin-top:12px"><div class="field full"><label>Name</label><input class="input" id="v7-name" value="${escapeHtml(q)}"></div><div class="field full"><label>Alternative spellings</label><input class="input" id="v7-alias" placeholder="Comma separated"></div><div class="field"><label>Category</label><input class="input" id="v7-cat" value="Custom"></div><div class="field"><label>Diet type</label><select class="select" id="v7-diet"><option value="veg">Vegetarian / drink</option><option value="egg">Contains egg</option><option value="nonveg">Non-vegetarian</option></select></div><div class="field"><label>Serving name</label><input class="input" id="v7-label" value="1 serving" placeholder="1 piece, bowl, bottle"></div><div class="field"><label>Approx. grams or ml</label><input class="input" id="v7-grams" type="number" min="1" value="100"><div class="field-help">Keep 100 when unknown.</div></div><div class="field"><label>Calories per serving</label><input class="input" id="v7-kcal" type="number" min="0"></div><div class="field"><label>Protein per serving (g)</label><input class="input" id="v7-pro" type="number" min="0" step="0.1" value="0"></div><div class="field"><label>Carbs per serving (g)</label><input class="input" id="v7-carb" type="number" min="0" step="0.1" value="0"></div><div class="field"><label>Fat per serving (g)</label><input class="input" id="v7-fat" type="number" min="0" step="0.1" value="0"></div><div class="field"><label>Fibre per serving (g)</label><input class="input" id="v7-fib" type="number" min="0" step="0.1" value="0"></div><div class="field"><label>Source / brand</label><input class="input" id="v7-source" placeholder="Package label, restaurant, estimate"></div></div><button class="btn primary wide" style="margin-top:14px" data-v7-save="${escapeHtml(meal)}">Save and add to ${escapeHtml(meal)}</button>`);
+ requestAnimationFrame(()=>{
+  document.getElementById('v7-name')?.focus();
+  const saveBtn=document.querySelector('[data-v7-save]');
+  if(saveBtn)saveBtn.onclick=(ev)=>{ev.preventDefault();ev.stopPropagation();saveCustom(meal)};
+ });
+}
+function saveCustom(meal){
+ const name=document.getElementById('v7-name')?.value.trim(),g=Math.max(1,Number(document.getElementById('v7-grams')?.value)||100),k=Number(document.getElementById('v7-kcal')?.value);
+ if(!name){alert('Enter a name.');return}if(!Number.isFinite(k)||k<0){alert('Enter calories for one serving.');return}
+ const vals={kcal:k,protein:Math.max(0,Number(document.getElementById('v7-pro')?.value)||0),carbs:Math.max(0,Number(document.getElementById('v7-carb')?.value)||0),fat:Math.max(0,Number(document.getElementById('v7-fat')?.value)||0),fiber:Math.max(0,Number(document.getElementById('v7-fib')?.value)||0)},id='custom-'+Date.now(),label=document.getElementById('v7-label')?.value.trim()||'1 serving',z=100/g;
+ const f={id,name,category:document.getElementById('v7-cat')?.value.trim()||'Custom',diet:document.getElementById('v7-diet')?.value||'veg',servingG:g,kcal:round(vals.kcal*z,2),protein:round(vals.protein*z,2),carbs:round(vals.carbs*z,2),fat:round(vals.fat*z,2),fiber:round(vals.fiber*z,2),source:document.getElementById('v7-source')?.value.trim()||'User supplied estimate',basis:'per 100 g/ml equivalent',custom:true,quality:'User supplied',aliases:(document.getElementById('v7-alias')?.value||'').split(',').map(x=>x.trim()).filter(Boolean),servings:[{key:'serving',label,grams:g}]};
+ state.customFoods.push(f);dayData().meals[meal].push({kind:'food',ref:id,name,quantity:1,servingKey:'serving',display:label,grams:g,...Object.fromEntries(Object.entries(vals).map(([x,v])=>[x,round(v,1)]))});state.recentFoods=[id,...(state.recentFoods||[]).filter(x=>x!==id)].slice(0,12);saveState();closeModal();render();toast(`${name} added to ${meal}`);
+}
+
+let navHistory=[];const oldHead=pageHead;
+pageHead=function(t,s,a=''){return `<div class="page-nav-row"><button class="btn outline small" data-v7-back="1" ${navHistory.length?'':'disabled'}>← Back</button><button class="btn outline small" data-v7-home="1" ${state.activePage==='dashboard'?'disabled':''}>Home</button></div>${oldHead(t,s,a)}`};
+const oldClick=handleClick;
+handleClick=function(e){const b=e.target.closest?.('button,[data-nav]');if(!b)return;if('v7Back' in b.dataset){state.activePage=navHistory.pop()||'dashboard';closeModal();render();scrollTo({top:0,behavior:'smooth'});return}if('v7Home' in b.dataset){if(state.activePage!=='dashboard')navHistory.push(state.activePage);state.activePage='dashboard';closeModal();render();scrollTo({top:0,behavior:'smooth'});return}if(b.dataset.v7Create){const [m,q='']=b.dataset.v7Create.split('|');openCustom(m||ftActivePickerMeal||'Other',decodeURIComponent(q));return}if(b.dataset.v7Save){saveCustom(b.dataset.v7Save);return}if(b.dataset.nav&&b.dataset.nav!=='more'&&b.dataset.nav!==state.activePage)navHistory.push(state.activePage);return oldClick(e)};
+const oldRender=render;render=function(){oldRender();requestAnimationFrame(()=>{
+ const i=document.getElementById('foodSearch');if(i)i.placeholder='Search omlete, omelette, beer, roti, brand...';
+ const back=document.querySelector('[data-v7-back]');if(back)back.onclick=(ev)=>{ev.preventDefault();ev.stopPropagation();state.activePage=navHistory.pop()||'dashboard';closeModal();render();scrollTo({top:0,behavior:'smooth'})};
+ const home=document.querySelector('[data-v7-home]');if(home)home.onclick=(ev)=>{ev.preventDefault();ev.stopPropagation();if(state.activePage!=='dashboard')navHistory.push(state.activePage);state.activePage='dashboard';closeModal();render();scrollTo({top:0,behavior:'smooth'})};
+})};
+render();
+})();
+</script>
+
 </body></html>
